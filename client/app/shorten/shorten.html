@@ -1,5 +1,8 @@
 <div id='container' ng-controller="ShortenController">
-Shorten
+  <h1>Shorten</h1>
+  <form name="shortenForm" ng-submit='addLink(url)' novalidate>
+    <input name="toShorten" type='url' ng-model='url'>
+    <button>Go!</button>
+    <div ng-show="shortenForm.$invalid" style="margin-top: 50px; color: red">URL is invalid</div>
+  </form>
 </div>
-
-

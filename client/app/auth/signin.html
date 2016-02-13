@@ -1,9 +1,10 @@
 <div id='signin'>
-  <h1>signin</h1>
-  <form name="signinForm" ng-submit='signin()'>
-    <input type='text'ng-model='user.username'>
+  <h1>Sign In</h1>
+  <form name="signinForm" ng-submit='signin()' novalidate>
+    <input type='text'ng-model='user.username' ng-pattern='/[a-zA-Z0-9^]/' />
+    <span ng-show="signinForm.$invalid" style="color: red">Invalid Characters</span>
     <input type="password" ng-model='user.password'>
-    <button>signin</button>
+    <button>Log In</button>
   </form>
   <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
 </div>

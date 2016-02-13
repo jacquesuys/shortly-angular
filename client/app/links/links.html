@@ -1,4 +1,4 @@
-<div id='container' ng-controller="LinksController">
+<div id='container'>
   <input ng-model="query" placeholder="Filter" />
   <div class="link" ng-repeat="link in data.links | filter:query | orderBy:'-visits'">
     <img src='assets/redirect_icon.png'/>

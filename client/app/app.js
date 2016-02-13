@@ -23,7 +23,12 @@ angular.module('shortly', [
     .when('/links', {
       templateUrl: 'app/links/links.html',
       controller: 'LinksController',
-      authenticate: true
+      authenticate: true,
+      resolve: {
+        getAll: function (Links) {
+          return Links.getAll();
+        }
+      }
     })
     .otherwise({
       redirectTo: '/links'

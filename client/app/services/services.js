@@ -31,7 +31,7 @@ angular.module('shortly.services', [])
     getAll: getAll
   };
 })
-.factory('Auth', function ($http, $location, $window) {
+.factory('Auth', function ($http, $state, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
@@ -67,7 +67,7 @@ angular.module('shortly.services', [])
 
   var signout = function () {
     $window.localStorage.removeItem('com.shortly');
-    $location.path('/signin');
+    $state.go('/signin');
   };
 
 

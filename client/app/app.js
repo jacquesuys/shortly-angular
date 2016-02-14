@@ -3,40 +3,43 @@ angular.module('shortly', [
   'shortly.links',
   'shortly.shorten',
   'shortly.auth',
-  'ngRoute'
+  'ui.router'
 ])
-.config(function ($routeProvider, $httpProvider) {
-  $routeProvider
-    .when('/signin', {
-      templateUrl: 'app/auth/signin.html',
-      controller: 'AuthController'
+.config(function ($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('/signin', {
+    url: '/',
+    templateUrl: 'app/auth/signin.html',
+    controller: 'AuthController'
     })
-    .when('/signup', {
-      templateUrl: 'app/auth/signup.html',
-      controller: 'AuthController'
-    })
-    .when('/shorten', {
-      templateUrl: 'app/shorten/shorten.html',
-      controller: 'ShortenController',
-      authenticate: true
-    })
-    .when('/links', {
-      templateUrl: 'app/links/links.html',
-      controller: 'LinksController',
-      authenticate: true,
-      resolve: {
-        getAll: function (Links) {
-          return Links.getAll();
-        }
+  .state('/signup', {
+    url: '/',
+    templateUrl: 'app/auth/signup.html',
+    controller: 'AuthController'
+  })
+  .state('/shorten', {
+    url: '/',
+    templateUrl: 'app/shorten/shorten.html',
+    controller: 'ShortenController',
+    authenticate: true
+  })
+  .state('/links', {
+    url: '/',
+    templateUrl: 'app/links/links.html',
+    controller: 'LinksController',
+    authenticate: true,
+    resolve: {
+      getAll: function (Links) {
+        return Links.getAll();
       }
-    })
-    .otherwise({
-      redirectTo: '/links'
-    });
+    }
+  });
+
+  $urlRouterProvider.otherwise('/links');
 
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
-    $httpProvider.interceptors.push('AttachTokens');
+    // $urlRouterProvider.interceptors.push('AttachTokens');
 })
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
@@ -65,7 +68,7 @@ angular.module('shortly', [
   // if it's not valid, we then redirect back to signin/signup
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
-      $location.path('/signin');
+      window.location.path('/signin');
     }
   });
 });

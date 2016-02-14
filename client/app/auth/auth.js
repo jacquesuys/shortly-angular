@@ -29,6 +29,7 @@ angular.module('shortly.auth', [])
   };
 
   $scope.signout = function () {
+    event.preventDefault();
     Auth.signout();
   };
 });

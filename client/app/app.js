@@ -5,7 +5,7 @@ angular.module('shortly', [
   'shortly.auth',
   'ui.router'
 ])
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('/signin', {
     url: '/signin',
@@ -39,7 +39,7 @@ angular.module('shortly', [
 
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
-    // $urlRouterProvider.interceptors.push('AttachTokens');
+    $httpProvider.interceptors.push('AttachTokens');
 })
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
